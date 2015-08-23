@@ -14,6 +14,12 @@ print
 mimetype = 'application/x-directory'
      # 'httpd/unix-directory'
 create_date = False
+#: E118 E117 E101
+if True:
+        # complaint about 8 space indentation level
+        print
+else:
+	print
 #: E116 E116 E116
 def start(self):
     if True:

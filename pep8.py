@@ -362,6 +362,8 @@ def indentation(logical_line, previous_logical, indent_char,
     Okay: if a == 0:\n    a = 1
     E111:   a = 1
     E114:   # a = 1
+    E117: if a == 0:\n        a = 1
+    E118: if a == 0:\n        # change a to 1
 
     Okay: for item in items:\n    pass
     E112: for item in items:\npass
@@ -380,6 +382,9 @@ def indentation(logical_line, previous_logical, indent_char,
         yield 0, tmpl % (2 + c, "expected an indented block")
     elif not indent_expect and indent_level > previous_indent_level:
         yield 0, tmpl % (3 + c, "unexpected indentation")
+    elif not (indent_level % 4) and indent_expect and indent_level != previous_indent_level + 4:
+        c = 7 if logical_line else 8
+        yield 0, tmpl % (c, "indentation is not exactly 4 spaces")
 
 
 def continued_indentation(logical_line, tokens, indent_level, hang_closing,
